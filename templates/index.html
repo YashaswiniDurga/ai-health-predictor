@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Health Predictor</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dff6ff, #f7fbff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: #1f3c88;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #4a90e2;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #357abd, #245a99);
+    transform: translateY(-2px);
+}
+
+h2, h3 {
+    text-align: center;
+    color: #1f3c88;
+}
+.result-card {
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #4a90e2;
+}
+
+.result-card h3 {
+    margin-top: 0;
+    color: #1f3c88;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.result-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.result-card li {
+    background: #f7fbff;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: #333;
+    border: 1px solid #e3eefc;
+    transition: 0.3s;
+}
+
+.result-card li:hover {
+    background: #eaf4ff;
+    transform: translateX(4px);
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress {
+    height: 100%;
+    background: #4a90e2;
+    border-radius: 10px;
+}
+
+    </style>
+</head>
+<body>
+<div class="container" >
+<h1 style="text-align: center;">AI Health Risk Predictor</h1>
+
+<form method="POST">
+    <label>Age:</label>
+    <input type="number" name="age" required><br>
+
+    <label>Sleep Hours:</label>
+    <input type="number" step="0.1" name="sleep" required><br>
+
+    <label>Exercise:</label>
+    <select name="exercise">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select><br>
+
+    <label>Pollution Level:</label>
+    <select name="pollution" required>
+       <option value="low"> Low</option>
+       <option value="medium"> Medium</option>
+       <option value="high"> High</option>
+</select><br>
+
+    <label>Junk Food:</label>
+    <select name="junk">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select><br>
+
+    <button type="submit">Analyze</button>
+</form>
+
+{% if score %}
+<div class="result-card">
+    <h2>Health Score: {{ score }}</h2>
+
+    <div class="progress-bar">
+        <div class="progress" style="width: {{ score }}%;"></div>
+    </div>
+
+    <h3 class="{{ risk|lower }}">Risk: {{ risk }}</h3>
+</div>
+{% endif %}
+
+<!-- ✅ Suggestions block should be HERE -->
+{% if suggestions %}
+<div class="result-card">
+    <h3>Suggestions</h3>
+    <ul>
+        {% for tip in suggestions %}
+            <li>{{ tip }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
+</body>
+</html>
